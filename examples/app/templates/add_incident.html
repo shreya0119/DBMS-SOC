@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Add Incident{% endblock %}
+
+{% block content %}
+<h1>+ Add New Incident</h1>
+
+<div class="form-card">
+    {% if errors %}
+    <ul class="error-list">
+        {% for err in errors %}<li>{{ err }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+
+    <form id="add-incident-form" action="{{ url_for('add_incident') }}" method="POST">
+        <div class="form-group">
+            <label for="title">Incident Title *</label>
+            <input type="text" id="title" name="title" value="{{ form.get('title','') }}" placeholder="e.g. Malware detected on server">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description">{{ form.get('description','') }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="source_ip">Source IP (optional)</label>
+            <input type="text" id="source_ip" name="source_ip" value="{{ form.get('source_ip','') }}" placeholder="e.g. 192.168.1.1">
+        </div>
+
+        <div class="form-group">
+            <label for="severity">Severity *</label>
+            <select id="severity" name="severity">
+                <option value="">-- Select --</option>
+                {% for sev in ['Low','Medium','High','Critical'] %}
+                <option value="{{ sev }}" {% if form.get('severity')==sev %}selected{% endif %}>{{ sev }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="threat_type_id">Threat Type *</label>
+            <select id="threat_type_id" name="threat_type_id">
+                <option value="">-- Select --</option>
+                {% for tt in threat_types %}
+                <option value="{{ tt.threat_type_id }}" {% if form.get('threat_type_id')|string == tt.threat_type_id|string %}selected{% endif %}>
+                    {{ tt.type_name }} ({{ tt.severity }})
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="reported_by">Reported By *</label>
+            <select id="reported_by" name="reported_by">
+                <option value="">-- Select Investigator --</option>
+                {% for inv in investigators %}
+                <option value="{{ inv.investigator_id }}" {% if form.get('reported_by')|string == inv.investigator_id|string %}selected{% endif %}>
+                    {{ inv.full_name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit Incident</button>
+    </form>
+</div>
+{% endblock %}

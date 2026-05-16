@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Alerts{% endblock %}
+
+{% block content %}
+<h1>Alert Log</h1>
+<div class="table-wrapper">
+<table>
+    <thead>
+        <tr>
+            <th>ID</th><th>Incident</th><th>Severity</th>
+            <th>Alert Type</th><th>Timestamp</th><th>Status</th><th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for al in alerts %}
+    <tr id="alert-row-{{ al.alert_id }}">
+        <td>{{ al.alert_id }}</td>
+        <td>#{{ al.incident_id }} — {{ al.title }}</td>
+        <td><span class="badge badge-{{ al.severity | lower }}">{{ al.severity }}</span></td>
+        <td>{{ al.alert_type }}</td>
+        <td>{{ al.alert_timestamp }}</td>
+        <td id="alert-status-{{ al.alert_id }}">
+            <span class="pill pill-{{ al.status | lower | replace(' ', '-') }}">{{ al.status }}</span>
+        </td>
+        <td>
+            {% if al.status == 'Unacknowledged' %}
+            <button class="btn btn-danger" onclick="acknowledgeAlert({{ al.alert_id }})">ACK</button>
+            {% else %}
+            <span style="color: var(--text-muted); font-size: 0.75rem;">Done</span>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

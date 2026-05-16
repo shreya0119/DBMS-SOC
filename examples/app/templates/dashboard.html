@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h1>⬡ SOC Dashboard</h1>
+
+<div id="refresh-countdown">Auto-refresh in <span id="countdown">30</span>s</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <span class="stat-value">{{ total }}</span>
+        <div class="stat-label">Total Incidents</div>
+    </div>
+    <div class="stat-card">
+        <span class="stat-value" style="color: var(--accent-red)">{{ open_count }}</span>
+        <div class="stat-label">Open Incidents</div>
+    </div>
+    <div class="stat-card">
+        <span class="stat-value" style="color: var(--accent-orange)">{{ critical_alerts }}</span>
+        <div class="stat-label">Unacknowledged Alerts</div>
+    </div>
+    <div class="stat-card">
+        <span class="stat-value" style="color: var(--accent-green)">{{ active_inv }}</span>
+        <div class="stat-label">Active Investigators</div>
+    </div>
+</div>
+
+<h2>Recent Incidents</h2>
+<div class="table-wrapper">
+<table>
+    <thead>
+        <tr>
+            <th>ID</th><th>Title</th><th>Threat Type</th>
+            <th>Severity</th><th>Status</th><th>Reported At</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for inc in recent %}
+    <tr>
+        <td>{{ inc.incident_id }}</td>
+        <td>{{ inc.title }}</td>
+        <td>{{ inc.threat_type }}</td>
+        <td>
+            <span class="badge badge-{{ inc.severity | lower | replace(' ', '-') }}">
+                {{ inc.severity }}
+            </span>
+        </td>
+        <td>
+            <span class="pill pill-{{ inc.status | lower | replace(' ', '-') }}">
+                {{ inc.status }}
+            </span>
+        </td>
+        <td>{{ inc.reported_at }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

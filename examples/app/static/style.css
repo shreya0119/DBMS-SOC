@@ -1,0 +1,343 @@
+/* ============================================================
+   SOC Logger — Dark Terminal Aesthetic
+   Fonts: Share Tech Mono (monospace code feel) + Rajdhani
+   Palette: Deep navy bg, cyan accent, red/amber/green badges
+   ============================================================ */
+
+:root {
+    --bg-primary:    #0a0e1a;
+    --bg-secondary:  #0f1629;
+    --bg-card:       #131d35;
+    --bg-hover:      #1a2540;
+    --accent-cyan:   #00d4ff;
+    --accent-green:  #00ff88;
+    --accent-red:    #ff3860;
+    --accent-orange: #ff8c00;
+    --accent-yellow: #ffd700;
+    --text-primary:  #e0e8ff;
+    --text-muted:    #6a7fa8;
+    --border:        #1e2d50;
+    --font-main:     'Rajdhani', sans-serif;
+    --font-mono:     'Share Tech Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* ── Navbar ─────────────────────────────── */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--accent-cyan);
+    padding: 0 2rem;
+    height: 56px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
+}
+
+.nav-brand {
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    color: var(--accent-cyan);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    letter-spacing: 2px;
+}
+
+.nav-brand strong { color: var(--text-primary); }
+.nav-icon { font-size: 1.4rem; }
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 0.25rem;
+}
+
+.nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--accent-cyan);
+    background: rgba(0, 212, 255, 0.08);
+}
+
+/* ── Main Layout ─────────────────────────── */
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-main);
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+h1 {
+    font-size: 1.8rem;
+    color: var(--accent-cyan);
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.75rem;
+}
+
+h2 { font-size: 1.3rem; color: var(--text-primary); margin-bottom: 1rem; }
+
+/* ── Stat Cards (Dashboard) ──────────────── */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent-cyan);
+}
+
+.stat-card:hover {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 16px rgba(0, 212, 255, 0.12);
+}
+
+.stat-card .stat-value {
+    font-family: var(--font-mono);
+    font-size: 2.5rem;
+    color: var(--accent-cyan);
+    display: block;
+}
+
+.stat-card .stat-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 0.25rem;
+}
+
+/* ── Tables ──────────────────────────────── */
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+thead {
+    background: var(--bg-secondary);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+}
+
+thead th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+}
+
+tbody tr:last-child { border-bottom: none; }
+
+tbody tr:hover { background: var(--bg-hover); }
+
+tbody td {
+    padding: 0.7rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+}
+
+/* ── Severity Badges ─────────────────────── */
+.badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.badge-critical { background: rgba(255,56,96,0.15); color: var(--accent-red); border: 1px solid var(--accent-red); }
+.badge-high     { background: rgba(255,140,0,0.15);  color: var(--accent-orange); border: 1px solid var(--accent-orange); }
+.badge-medium   { background: rgba(255,215,0,0.15);  color: var(--accent-yellow); border: 1px solid var(--accent-yellow); }
+.badge-low      { background: rgba(0,255,136,0.1);   color: var(--accent-green);  border: 1px solid var(--accent-green); }
+
+/* ── Status Pills ────────────────────────── */
+.pill {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.pill-open        { background: rgba(255,56,96,0.15);   color: var(--accent-red); }
+.pill-in-progress { background: rgba(255,215,0,0.15);   color: var(--accent-yellow); }
+.pill-resolved    { background: rgba(0,255,136,0.1);    color: var(--accent-green); }
+.pill-unacknowledged { background: rgba(255,56,96,0.15); color: var(--accent-red); }
+.pill-acknowledged   { background: rgba(0,255,136,0.1);  color: var(--accent-green); }
+
+/* ── Buttons ─────────────────────────────── */
+.btn {
+    padding: 0.5rem 1.25rem;
+    border: none;
+    border-radius: 4px;
+    font-family: var(--font-main);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: var(--accent-cyan);
+    color: var(--bg-primary);
+}
+
+.btn-primary:hover { box-shadow: 0 0 12px rgba(0, 212, 255, 0.4); }
+
+.btn-danger {
+    background: transparent;
+    color: var(--accent-red);
+    border: 1px solid var(--accent-red);
+    font-size: 0.75rem;
+    padding: 3px 10px;
+}
+
+.btn-danger:hover { background: rgba(255,56,96,0.15); }
+
+/* ── Forms ───────────────────────────────── */
+.form-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+    max-width: 600px;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.6rem 0.9rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.15);
+}
+
+.form-group textarea { height: 100px; resize: vertical; }
+
+/* ── Error/Alert Messages ─────────────────── */
+.error-list {
+    background: rgba(255,56,96,0.1);
+    border: 1px solid var(--accent-red);
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    list-style: none;
+}
+
+.error-list li { color: var(--accent-red); font-size: 0.9rem; margin-bottom: 0.25rem; }
+.error-list li:last-child { margin-bottom: 0; }
+
+/* ── Reports Layout ──────────────────────── */
+.reports-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .reports-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }  /* basic mobile: hide nav links */
+}
+
+/* ── Countdown Timer ─────────────────────── */
+#refresh-countdown {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: right;
+    margin-bottom: 0.5rem;
+}

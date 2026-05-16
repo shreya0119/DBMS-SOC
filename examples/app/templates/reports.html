@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Reports{% endblock %}
+
+{% block content %}
+<h1>Management Reports</h1>
+
+<div class="reports-grid">
+    <div>
+        <h2>Threat Frequency</h2>
+        <div class="table-wrapper">
+        <table>
+            <thead><tr><th>Threat Type</th><th>Severity</th><th>Count</th></tr></thead>
+            <tbody>
+            {% for row in threat_freq %}
+            <tr>
+                <td>{{ row.Threat_Type }}</td>
+                <td><span class="badge badge-{{ row.severity | lower }}">{{ row.severity }}</span></td>
+                <td>{{ row.Incident_Count }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+    <div>
+        <h2>Investigator Workload</h2>
+        <div class="table-wrapper">
+        <table>
+            <thead><tr><th>Investigator</th><th>Department</th><th>Open Cases</th></tr></thead>
+            <tbody>
+            {% for row in workload %}
+            <tr>
+                <td>{{ row.Investigator }}</td>
+                <td>{{ row.department }}</td>
+                <td>{{ row.Open_Incidents }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
